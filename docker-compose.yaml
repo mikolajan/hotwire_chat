@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    volumes:
+      - .:/dbdata/var/lib/postgresql/data
+    env_file:
+      - .env
+  app:
+    build: .
+    command: sh -c 'bundle install && bundle exec rails s -b 0.0.0.0 -p 3000'
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/hotwire_chat
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file:
+      - .env
+    stdin_open: true    # byebug hack
+    tty: true           # byebug hack
