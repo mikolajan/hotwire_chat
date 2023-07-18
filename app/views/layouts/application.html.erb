@@ -11,6 +11,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="border-bottom bg-header">
+      <%= render 'layouts/header' %>
+    </div>
+
+
+    <div class="content bg-light">
+      <%= yield %>
+    </div>
   </body>
 </html>

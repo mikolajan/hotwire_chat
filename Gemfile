@@ -12,6 +12,7 @@ gem "stimulus-rails"
 gem "cssbundling-rails"
 gem "tzinfo-data"
 # gem "redis", "~> 4.0"
+gem "devise", "~> 4.8"
 
 group :development, :test do
   gem "byebug"
