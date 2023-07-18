@@ -1,1 +1,17 @@
-<h1>Chats</h1>
+<%= turbo_stream_from :rooms %>
+
+<div class="container py-2">
+  <%= turbo_frame_tag :new_room %>
+</div>
+
+<div class="container py-2">
+  <h2 class="m-2">Rooms:</h2>
+
+  <div class="p-3 pt-0">
+    <%= turbo_frame_tag :rooms do %>
+      <%= render @rooms %>
+    <% end %>
+  </div>
+</div>
+
+<%= turbo_frame_tag :current_room %>

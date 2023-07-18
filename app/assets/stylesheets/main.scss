@@ -1,7 +1,13 @@
-.bg-header {
+.bg-lightsalmon {
   background-color: lightsalmon;
 }
 
 .content {
   min-height: calc(100vh - 56px); // without header
+}
+
+.room_content {
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }

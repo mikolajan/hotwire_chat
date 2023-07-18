@@ -1,0 +1,13 @@
+<%= turbo_frame_tag :new_room_errors %>
+<%= render 'shared/errors', resource: @new_room %>
+
+<%= form_with model: @new_room do |f| %>
+  <div class="input-group my-3">
+    <%= f.text_field :title, class: 'form-control me-1',
+      placeholder: t('activerecord.attributes.room.title'), required: true %>
+
+    <div class="input-group-append">
+      <%= f.submit "Create room", class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>

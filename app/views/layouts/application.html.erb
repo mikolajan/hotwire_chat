@@ -11,12 +11,14 @@
   </head>
 
   <body>
-    <div class="border-bottom bg-header">
+    <div class="bg-lightsalmon">
       <%= render 'layouts/header' %>
     </div>
 
 
     <div class="content bg-light">
+      <%= render 'shared/flashes' %>
+
       <%= yield %>
     </div>
   </body>

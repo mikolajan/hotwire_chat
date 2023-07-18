@@ -1,9 +1,10 @@
 en:
   activerecord:
     attributes:
+      room:
+        title: Title
       user:
-        nickname: Nickname
         email: Email
+        nickname: Nickname
         password: Password
         password_confirm: confirm Password
-
