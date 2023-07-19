@@ -16,10 +16,11 @@ gem "devise", "~> 4.8"
 
 group :development, :test do
   gem "byebug"
-end
 
-group :test do
-  # gem "capybara"
-  # gem "selenium-webdriver"
-  # gem "webdrivers"
+  # I run tests from the same container
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "capybara"
+  gem "selenium-webdriver"
 end

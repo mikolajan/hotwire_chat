@@ -8,10 +8,12 @@ class RoomsController < ApplicationController
       @new_room.broadcast_append_to :rooms
       respond_to do |format|
         format.html { redirect_to rooms_path, notice: 'Succeccfully created' }
+        format.turbo_stream
       end
     else
       respond_to do |format|
         format.html { render :new }
+        format.turbo_stream
       end
     end
   end
