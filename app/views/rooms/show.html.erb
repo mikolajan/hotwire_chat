@@ -1,5 +1,16 @@
 <%= turbo_frame_tag :current_room_frame do %>
-  <div class="room_content bg-secondary">
-    <h3 class="text-center m-2"><%= @room.title %></h3>
+  <%= turbo_stream_from @room %>
+  <%= turbo_stream_from [current_user, @room] %>
+
+  <div class="room_content">
+    <h3 class="text-center p-2"><%= @room.title %></h3>
+
+    <div class="messages overflow-auto row m-0" id="room_<%= @room.id %>_messages">
+      <%= render @messages %>
+    </div>
+
+    <div class="mx-3">
+      <%= render 'messages/form', new_message: @new_message %>
+    </div>
   </div>
 <% end %>

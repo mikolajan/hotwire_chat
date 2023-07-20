@@ -1,0 +1,11 @@
+<%= turbo_frame_tag :"message_#{ message.id }" do%>
+  <div class="d-flex flex-row<%= '-reverse' if current_user == message.user %> mb-1">
+    <div class="col-9 mx-2 px-2 bg-light rounded">
+      <% if current_user != message.user %>
+        <div class="fw-bolder"><%= message.user.nickname %></div>
+      <% end %>
+      <div><%= message.body %></div>
+      <div class="fw-light d-flex flex-row-reverse"><%= l(message.created_at, format: :short) %></div>
+    </div>
+  </div>
+<% end %>

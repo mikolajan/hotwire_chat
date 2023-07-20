@@ -1,21 +1,22 @@
 <div class="container">
   <div class="d-flex flex-wrap justify-content-center py-2">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-      <span class="fs-4">Chats</span>
+      <span class="fs-4"><%= t('headers.root_link') %></span>
     </a>
 
     <ul class="nav nav-pills">
       <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to 'Create Room', new_room_path, id: 'new_room',
+          <%= link_to t('actions.create_room'), new_room_path, id: 'new_room',
             data: { turbo_frame: "new_room_frame" }, class: 'nav-link me-5' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Sign out', destroy_user_session_path, data: { 'turbo-method': :delete }, class: 'nav-link' %>
+          <%= link_to t('actions.sign_out'), destroy_user_session_path,
+            data: { 'turbo-method': :delete }, class: 'nav-link' %>
         </li>
       <% else %>
-        <li class="nav-item"><%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %></li>
-        <li class="nav-item"><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to t('actions.sign_in'), new_user_session_path,      class: 'nav-link' %></li>
+        <li class="nav-item"><%= link_to t('actions.sign_up'), new_user_registration_path, class: 'nav-link' %></li>
       <% end %>
     </ul>
   </div>

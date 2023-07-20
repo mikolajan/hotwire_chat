@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :messages, -> { sorted }, dependent: :destroy
+
   validates :nickname, presence: true, uniqueness: true # email is validated by Devise
 
   before_validation :normalize_params, on: :create

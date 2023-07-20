@@ -28,6 +28,8 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+    @new_message = @room.messages.build
+    @messages = @room.messages.includes(:user)
   end
 
   private

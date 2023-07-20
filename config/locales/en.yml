@@ -1,8 +1,17 @@
 en:
   actions:
     back: Back
-    submit: Submit
+    create_room: Create Room
+    send_message: Send message
     sign_in: Sign in
-  page_titles:
+    sign_out: Sign out
+    sign_up: Sign up
+    submit: Submit
+  headers:
+    create_room: Create Room
+    rooms: Rooms
+    root_link: Chats
+    select_room: Select a room and Messages will appear here
     sign_in: Authentication
     sign_up: Registration
+    users: Users

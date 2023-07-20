@@ -1,17 +1,38 @@
 <%= turbo_stream_from :rooms %>
 
-<div class="container py-2">
+<div class="container p-2 px-0 ">
   <%= turbo_frame_tag :new_room_frame %>
-</div>
 
-<div class="container py-2">
-  <h2 class="m-2">Rooms:</h2>
+  <div class="main row border bg-bisque">
+    <div class="col-12 col-md-4 col-xl-2 border-end border-3 p-0 pt-2">
+      <div class="users_list border-bottom border-3">
+        <div class="p-2">
+          <h2 class="m-2"><%= t('headers.users') %>:</h2>
 
-  <div class="p-3 pt-0">
-    <%= turbo_frame_tag :rooms do %>
-      <%= render @rooms %>
-    <% end %>
+          <div class="p-3 pt-0">
+            <%#= render @users %>
+          </div>
+        </div>
+      </div>
+
+      <div class="rooms_list">
+        <div class="p-2">
+          <h2 class="m-2"><%= t('headers.rooms') %>:</h2>
+
+          <div class="p-3 pt-0">
+            <%= turbo_frame_tag :rooms do %>
+              <%= render @rooms %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8 col-xl-10 p-0 bg-bisque">
+      <%= turbo_frame_tag :current_room_frame do %>
+        <h3 class="text-center m-4"><%= t('headers.select_room') %></h3>
+      <% end %>
+    </div>
   </div>
 </div>
 
-<%= turbo_frame_tag :current_room_frame %>

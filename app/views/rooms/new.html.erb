@@ -1,9 +1,7 @@
 <div class="container py-2">
-  <h2 class="m-2">Create Room</h2>
+  <h2 class="m-2"><%= t('headers.create_room') %></h2>
 
   <%= turbo_frame_tag :new_room_frame do %>
-    <div class="mx-3">
-      <%= render 'form', room: @new_room %>
-    </div>
+    <%= render 'form', room: @new_room %>
   <% end %>
 </div>
