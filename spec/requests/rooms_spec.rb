@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Rooms', type: :request do
-  let!(:user)   { create(:user) }
+  let!(:user)   { create :user }
   before(:each) { sign_in user }
 
   describe 'GET /index' do
@@ -25,7 +25,7 @@ RSpec.describe 'Rooms', type: :request do
 
         click_link 'new_room'
         page.find('#room_title').set new_room.title
-        page.find('input[value="Create room"]').click
+        page.find('input[value="Create Room"]').click
 
         expect(page).to have_css '#rooms a', text: room.title
         expect(page).to have_css '#rooms a', text: new_room.title
