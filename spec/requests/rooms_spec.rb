@@ -82,18 +82,51 @@ RSpec.describe 'Rooms', type: :request do
   end
 
   describe 'GET /show' do
-    let!(:room) { create(:room) }
+    describe 'for users room' do
+      let!(:room) { create(:room) }
 
-    feature 'when user clicks on room link', js: true do
-      scenario 'turbo frame loads data for current_room_frame' do
-        visit root_path
+      feature 'when user click on room link', js: true do
+        scenario 'turbo frame loads data for current_room_frame' do
+          visit root_path
 
-        expect(page.body).to include('<turbo-frame id="current_room_frame"')
-        expect(page).not_to have_selector('.room_content h3')
+          expect(page.body).to include('<turbo-frame id="current_room_frame"')
+          expect(page).not_to have_selector('.room_content h3')
 
-        click_link href: room_path(room)
+          click_link href: room_path(room)
 
-        expect(page).to have_css '.room_content h3', text: room.title
+          expect(page).to have_css '.room_content h3', text: room.title
+        end
+      end
+    end
+
+    describe 'for user room' do
+      let!(:user_1) { create(:user) }
+
+      context 'when user_room does not exist' do
+        it 'should create a new room' do
+          expect { get room_path(create(:user), type: :user) }.to change(Room, :count).by(1)
+        end
+      end
+
+      context 'when user_room exist' do
+        before { get room_path(user_1, type: :user) }
+
+        it 'should not create a new room' do
+          expect { get rooms_path(user_1, type: :user) }.to change(Room, :count).by(0)
+        end
+      end
+
+      feature 'when user click on user_room link', js: true do
+        scenario 'turbo frame loads data for current_room_frame' do
+          visit root_path
+
+          expect(page.body).to include('<turbo-frame id="current_room_frame"')
+          expect(page).not_to have_selector('.room_content h3')
+
+          click_link href: room_path(user_1, type: :user)
+
+          expect(page).to have_css '.room_content h3', text: user_1.nickname
+        end
       end
     end
   end

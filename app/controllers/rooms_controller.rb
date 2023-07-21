@@ -20,6 +20,7 @@ class RoomsController < ApplicationController
 
   def index
     @rooms = Room.all
+    @users = User.without_user(current_user)
   end
 
   def new
@@ -27,7 +28,8 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:id])
+    init_room
+
     @new_message = @room.messages.build
     @messages = @room.messages.includes(:user)
   end
@@ -36,5 +38,16 @@ class RoomsController < ApplicationController
 
   def room_params
     params.require(:room).permit(:title)
+  end
+
+  # /rooms/:id?type=user -- user_room; /rooms/:id -- users_room
+  def init_room
+    if params[:type] == 'user'
+      user = User.find(params[:id])
+      @room = Room.find_or_create_by(title: current_user.room_title_with(user), room_type: :user)
+      @room.title = user.nickname
+    else
+      @room = Room.find(params[:id])
+    end
   end
 end

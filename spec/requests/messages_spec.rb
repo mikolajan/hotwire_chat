@@ -36,7 +36,7 @@ RSpec.describe "Messages", type: :request do
     feature 'a message is created', js: true do
       let!(:messages_selector) { "#room_#{room.id}_messages [id^='message_']" }
 
-      scenario 'and turbostream add message' do
+      scenario 'and turbo_frame add message' do
         visit root_path
         page.find("a[href='#{room_path(room)}']").click
 
@@ -50,7 +50,26 @@ RSpec.describe "Messages", type: :request do
 
         expect(page.all(messages_selector).count).to eq messages_count + 1
       end
-    end
 
+      scenario 'and turbo_stream add message' do
+        visit root_path
+        page.find("a[href='#{room_path(room)}']").click
+
+        expect(page).to have_css '.room_content h3'
+        expect(page).to have_css '.room_content h3', text: room.title
+
+        messages_count = page.all(messages_selector).count
+
+        new_window = open_new_window
+        within_window new_window do
+          visit root_path
+          page.find("a[href='#{room_path(room)}']").click
+          page.find('input#message_body').set build(:message).body
+          page.find('input[value="Send message"]').click
+        end
+
+        expect(page.all(messages_selector).count).to eq messages_count + 1
+      end
+    end
   end
 end

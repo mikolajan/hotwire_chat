@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
     room = @new_message.room
     room_target = :"room_#{room.id}_messages"
 
-    @new_message.broadcast_append_to room, target: room_target, locals: { message: @new_message, current_user: nil }
+    @new_message.broadcast_append_to room, target: room_target, locals: { message: @new_message, current_user: User.new }
     @new_message.broadcast_append_to [current_user, room], target: room_target,
       locals: { message: @new_message, current_user: current_user }
   end
