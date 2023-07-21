@@ -1,0 +1,7 @@
+<div class="container py-2">
+  <h2 class="m-2"><%= t('headers.create_rooms_message') %></h2>
+
+  <%= turbo_frame_tag :new_content_frame do %>
+    <%= render 'form', new_message: @new_message, multiple: @multiple, users: @users, rooms: @rooms %>
+  <% end %>
+</div>

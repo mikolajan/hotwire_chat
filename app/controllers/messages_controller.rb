@@ -1,22 +1,46 @@
 class MessagesController < ApplicationController
+  # params { message: { body, rooms_ids, users_ids } }
   def create
-    @new_message = current_user.messages.build(message_params)
+    rooms_ids = params[:message][:rooms_ids]
+    create_message_for(Room.users_type.where(id: rooms_ids)) if rooms_ids.present?
 
-    broadcast_new_message if @new_message.save
+    users_ids = params[:message][:users_ids]
+    if users_ids.present?
+      User.where(id: users_ids).each do |user|
+        room = Room.find_or_create_by(title: current_user.room_title_with(user), room_type: :user)
+        create_message_for(room)
+      end
+    end
+  end
+
+  def new
+    @new_message = Message.new
+    if params[:multiple] == 'true'
+      @multiple = true
+      @users = User.all
+      @rooms = Room.users_type
+    end
   end
 
   private
 
-  def message_params
-    params.require(:message).permit(:body).merge(room_id: params[:room_id])
+  def create_message_for(rooms)
+    [*rooms].each do |room|
+      new_message = room.messages.build(message_params.merge(user: current_user))
+      broadcast(new_message) if new_message.save
+    end
   end
 
-  def broadcast_new_message
-    room = @new_message.room
+  def message_params
+    params.require(:message).permit(:body)
+  end
+
+  def broadcast(new_message)
+    room = new_message.room
     room_target = :"room_#{room.id}_messages"
 
-    @new_message.broadcast_append_to room, target: room_target, locals: { message: @new_message, current_user: User.new }
-    @new_message.broadcast_append_to [current_user, room], target: room_target,
-      locals: { message: @new_message, current_user: current_user }
+    new_message.broadcast_append_to room, target: room_target, locals: { message: new_message, current_user: User.new }
+    new_message.broadcast_append_to [current_user, room], target: room_target,
+      locals: { message: new_message, current_user: current_user }
   end
 end

@@ -9,7 +9,7 @@ RSpec.describe 'Rooms', type: :request do
       get rooms_path
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include('<turbo-frame id="new_room_frame"')
+      expect(response.body).to include('<turbo-frame id="new_content_frame"')
       expect(response.body).to include('<turbo-frame id="current_room_frame"')
     end
 

@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @rooms = Room.all
+    @rooms = Room.users_type
     @users = User.without_user(current_user)
   end
 
@@ -47,7 +47,7 @@ class RoomsController < ApplicationController
       @room = Room.find_or_create_by(title: current_user.room_title_with(user), room_type: :user)
       @room.title = user.nickname
     else
-      @room = Room.find(params[:id])
+      @room = Room.users_type.find(params[:id])
     end
   end
 end

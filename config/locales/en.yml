@@ -1,14 +1,17 @@
 en:
   actions:
     back: Back
-    create_room: Create Room
+    create_rooms_message: &create_rooms_message Send a message to multiple rooms
+    create_room: &create_room  Create Room
     send_message: Send message
     sign_in: Sign in
     sign_out: Sign out
     sign_up: Sign up
     submit: Submit
   headers:
-    create_room: Create Room
+    create_rooms_message: *create_rooms_message
+    create_room: *create_room
+    multiple_choise: use ctrl for multiple choise
     rooms: Rooms
     root_link: Chats
     select_room: Select a room and Messages will appear here

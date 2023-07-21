@@ -1,5 +1,26 @@
-<%= form_with model: [new_message.room, new_message] do |f| %>
-  <div class="input-group mt-3">
+<%= form_with model: new_message do |f| %>
+  <div class="input-group <%= multiple ? 'p-2 py-3 bg-light' : 'mt-3' %> ">
+    <% if multiple %>
+      <div class="container mb-3">
+        <h4 class="text-center mb-0"><%= t('headers.create_rooms_message') %></h4>
+        <h6 class="text-center mt-0">(<%= t('headers.multiple_choise') %>)</h6>
+
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.select :users_ids, options_for_select(users.pluck(:nickname, :id)), {},
+              { multiple: true, size: 4, class: 'form-select' } %>
+          </div>
+
+          <div class="col-md-6">
+            <%= f.select :rooms_ids, options_for_select(rooms.pluck(:title, :id)), {},
+              { multiple: true, size: 4, class: 'form-select' } %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= f.hidden_field :rooms_ids, value: new_message.room_id %>
+    <% end %>
+
     <%= f.text_field :body, class: 'form-control me-1', required: true %>
 
     <div class="input-group-append">

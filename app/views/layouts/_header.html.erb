@@ -7,8 +7,12 @@
     <ul class="nav nav-pills">
       <% if user_signed_in? %>
         <li class="nav-item">
+          <%= link_to t('actions.create_rooms_message'), new_message_path(multiple: true),
+            id: 'new_multiple_message', data: { turbo_frame: "new_content_frame" }, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
           <%= link_to t('actions.create_room'), new_room_path, id: 'new_room',
-            data: { turbo_frame: "new_room_frame" }, class: 'nav-link me-5' %>
+            data: { turbo_frame: "new_content_frame" }, class: 'nav-link me-5' %>
         </li>
         <li class="nav-item">
           <%= link_to t('actions.sign_out'), destroy_user_session_path,
