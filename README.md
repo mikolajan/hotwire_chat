@@ -8,8 +8,17 @@ In this version of the application:
 - There is also a feature that allows sending one message to multiple chats (rooms and/or users) simultaneously.
 
 ### Launching:
-Download or clone repo. Install docker and docker-compose.
+Install docker and docker-compose. Download or clone repo. From project folder run commands:
+
+    $ cp .env.example .env
+Add postgress data to .env file
 
     $ docker-compose up
+
+After start containers run commands to run migrations and build assets:
+
+    $ docker-compose exec app bundle exec rails db:migrate
+    $ docker-compose exec app yarn build
+    $ docker-compose exec app yarn build:css
 ### License:
 MIT – see ```LICENSE```

@@ -1,6 +1,4 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create new show]
-
   def create
     @new_room = Room.new(room_params)
 

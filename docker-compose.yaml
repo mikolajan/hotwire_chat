@@ -11,7 +11,7 @@ services:
       - .env
   app:
     build: .
-    command: sh -c 'bundle install && bundle exec rails s -b 0.0.0.0 -p 3000'
+    command: sh -c 'bundle exec rails s -b 0.0.0.0 -p 3000'
     ports:
       - 3000:3000
     volumes:

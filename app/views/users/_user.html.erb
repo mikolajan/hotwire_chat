@@ -1,1 +1,2 @@
-<%= link_to user.nickname, room_path(user, type: :user), data: { turbo_frame: :current_room_frame }, class: "me-2" %>
+<%= link_to user.nickname, room_path(user, type: :user),
+  data: { turbo: user_signed_in?, turbo_frame: :current_room_frame }, class: "me-2" %>
