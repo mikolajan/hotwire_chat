@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
     @new_room = Room.new(room_params)
 
     if @new_room.save
-      @new_room.broadcast_append_to :rooms
+      @new_room.broadcast_append_to :rooms, locals: { current_user: current_user }
       respond_to do |format|
         format.html { redirect_to rooms_path, notice: 'Succeccfully created' }
         format.turbo_stream

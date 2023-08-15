@@ -24,6 +24,7 @@ class MessagesController < ApplicationController
 
   private
 
+  # _for(*rooms) for AR::Relation return [AR::Relation]
   def create_message_for(rooms)
     [*rooms].each do |room|
       new_message = room.messages.build(message_params.merge(user: current_user))
