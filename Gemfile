@@ -16,8 +16,9 @@ gem "devise", "~> 4.8"
 
 group :development, :test do
   gem "byebug"
+end
 
-  # I run tests from the same container
+group :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "faker"

@@ -3,17 +3,20 @@ version: '3.8'
 services:
   db:
     image: postgres:13
-    ports:
-      - 5432:5432
     volumes:
       - .:/dbdata/var/lib/postgresql/data
+      - ./docker/init-dbuser.sh:/docker-entrypoint-initdb.d/init-dbuser.sh
     env_file:
       - .env
   app:
     build: .
-    command: sh -c 'bundle exec rails s -b 0.0.0.0 -p 3000'
+    command: >
+      sh -c 'bin/rails assets:precompile &&
+             bin/rails db:create &&
+             bin/rails db:migrate &&
+             bin/rails s -b 0.0.0.0 -p ${APP_PORT}'
     ports:
-      - 3000:3000
+      - ${APP_PORT}:${APP_PORT}
     volumes:
       - .:/hotwire_chat
     restart: unless-stopped

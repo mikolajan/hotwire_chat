@@ -4,10 +4,10 @@ WORKDIR /hotwire_chat
 
 RUN apk --no-cache add \
     build-base \
-    postgresql-dev \
-    nodejs \
-    yarn \
-    chromium chromium-chromedriver python3 python3-dev py3-pip
+    libpq-dev \
+    nodejs yarn
+
+    #chromium chromium-chromedriver python3 python3-dev py3-pip;
 
 COPY . .
 

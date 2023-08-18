@@ -3,22 +3,20 @@
 ### Description:
 Simple chat with Hotwire. Implemented in Ruby 3.2.2, using Rails 7.0.5 and PostgreSQL 13.
 In this version of the application:
-- Еhe user can only create an account. There is no possibility to edit or delete a user.
+- The user can only create an account. There is no possibility to edit or delete a user.
 - There is no Authorization. Each user can create a room and send a message to any room or send a private message to any user, including themselves.
 - There is also a feature that allows sending one message to multiple chats (rooms and/or users) simultaneously.
 
 ### Launching:
-Install docker and docker-compose. Download or clone repo. From project folder run commands:
+Install docker and docker-compose. Download or clone repo. From project folder run commands (in some cases, it is necessary to repeat the last command):
 
     $ cp .env.example .env
-Add postgress data to .env file
-
+    $ docker-compose up --build
     $ docker-compose up
 
-After start containers run commands to run migrations and build assets:
+Currently, the database does not have an external port. If necessary, please add it to the docker-compose.
 
-    $ docker-compose exec app bundle exec rails db:migrate
-    $ docker-compose exec app yarn build
-    $ docker-compose exec app yarn build:css
+Also, to run the project on a port other than 3000, change it in the .env file.
+
 ### License:
 MIT – see ```LICENSE```
